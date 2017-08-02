@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Game_main</title>
+<link rel="stylesheet" href="style/Game_main.css">
+</head>
+<body>
+<div id="wrap">
+	<div class="head">
+		<div id="log"></div>
+		<h3 class="title">懂不懂什么叫打豆豆?</h3>
+		<p class="explain">点击“开始游戏”，豆豆出现的时候，疯狂点击就对了！！</p>
+	</div>
+	<div class="content">
+		<div class="store">
+			<div class="outer">
+				<img src="img/demon1.png" alt="" class="target"/>
+			</div>
+		</div>
+		<div class="win">
+			<span class="winNum">0分</span>
+			<p>得分</p>
+		</div>
+		<div class="lose">
+			<span class="loseNum">0分</span>
+			<p>失分</p>
+		</div>
+		<a href="javascript:;" class="btn">开始游戏</a>
+	</div>
+</div>
+</body>
+</html>
+<script src="js/tools.js"></script>
+<script src="js/index.js"></script>
+<!-- 
+需求:
+1,点击开始btn,游戏开始
+2,表情随机往下落  Math.ceil()向上取整,Math.random()随机数,setInterval(),clearInterval(),
+3,点击表情左右抖动消失得分+1/没点中下落后窗口上下抖动失分+1,失分积满10分则游戏失败!!!
+ -->
