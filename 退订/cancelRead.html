@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  p,h5{
+    font-weight: normal;
+    margin:0;
+  }
+  ul,li{
+    margin:0;
+    padding:0;
+    list-style: none;
+  }
+  body{
+    background-color: #f2f2f2;
+  }
+  header {
+      padding: 20px 170px;
+  }
+  header img,span{
+      cursor: pointer;
+  }
+  header div {
+      width: 106px;
+      height: 40px;
+      font-size: 14px;
+      line-height: 40px;
+      float: right;
+  }
+  .fill-unsubscribe{
+      width:670px;
+      height:520px;
+      padding-left:30px;
+      margin: 60px auto 0;
+      border:1px solid #EBEBEB;
+      position:relative;
+      background-color: #fff;
+    }
+  .fill-unsubscribe h5{
+    line-height:30px;
+    font-size: 30px;
+    text-align:center;
+    color:#0085FF;
+    margin:43px auto;
+  }
+  .unsubscribe-email .usermail{
+    width:390px;
+    height:36px;
+    line-height:36px;
+    padding-left:10px;
+    border:1px solid #EBEBEB;
+    border-radius:4px;
+    outline: none;
+  }
+  .unsubscribe-email .erro-tips{
+    margin-left:20px;
+    color:red;
+  }
+  .unsubscribe-email .content div:nth-child(2){
+    color:#3D465B;
+    font-size:18px;
+    margin:20px 0 10px;
+  }
+  .unsubscribe-email li{
+    line-height:30px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+  }
+  .unsubscribe-email li{
+    color:#7A869D;
+  }
+  .unsubscribe-email li input{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    border:1px solid #7A869D;
+    border-radius:8px;
+    margin-right:10px;
+  }
+  .unsubscribe-email li input.active{
+    border-color:#0085FF;
+  }
+  .unsubscribe-email li span.active:before{
+    content:'';
+    display:block;
+    width:10px;
+    height:10px;
+    border-radius:5px;
+    margin:2px;
+    background-color: #0085FF;
+  }
+  .unsubscribe-email li div{
+    display: flex;
+    flex-wrap:nowrap;
+    align-items: center;
+  }
+  .unsubscribe-email .item textarea{
+    display:block;
+    width:630px;
+    height:55px;
+    padding:0 5px;
+    margin-top:15px;
+    resize: none;
+    border:1px solid #EBEBEB;
+    outline: none;
+  }
+  .unsubscribe-email .pull-select{
+    width:300px;
+    line-height:40px;
+    color:#fff;
+    background-color:#0085FF;
+    text-align:center;
+    border:0;
+    margin-left:200px;
+    letter-spacing: 10px;
+    cursor:pointer;
+    position: absolute;
+    bottom: 20px;
+  }
+  /*  */
+  .success-unsubscribe{
+    width:700px;
+    height:350px;
+    background-color: #fff;
+    border:1px solid #EBEBEB;
+    border-radius:2px;
+    margin:0 auto;
+  }
+  .success-unsubscribe h5{
+    line-height:30px;
+    text-align:center;
+    color:#8FC41F;
+    margin:43px 0;
+    font-size: 30px;
+  }
+  .success-unsubscribe .success-icon{
+    /* width:100px; */
+    height:100px;
+    text-align:center;
+  }
+  .success-unsubscribe div:nth-child(3){
+    text-align: center;
+    line-height:18px;
+    font-size:18px;
+    color:#3D465B;
+    margin-top:30px;
+  }
+  .item label{
+    position: relative;
+  }
+  .item label .outerIcon{
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    width: 14px;
+    height: 14px;
+    top: -2px;
+  }
+  .item label span.icon{
+    display: inline-block;
+    width:12px;
+    height: 12px;
+    border-radius: 50%;
+    border:1px solid #0085FF;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .item label span.icon:after{
+    display: inline-block;
+    width:10px;
+    height: 10px;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    background-color: #fff;
+    border-radius: 50%;
+    content: "";
+  }
+  .item label span.selected:after{
+    background-color: #0085FF;
+  }
+  .item label input{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    opacity: 0;
+    position: absolute;
+    left: -2px;
+    top: 4px;
+    z-index: 2;
+  }
+  </style>
+</head>
+  <script src="./angular.js"></script>
+<body ng-app="myApp">
+  <header>
+    <a href="http://labs.bigcloudsys.cn/pc/portal/index.html#/sidebar/pcIndex">
+      <img src="img/chinaMobile.png" alt="logo"/>
+    </a>
+    <!-- <div><span data-toggle="modal" data-target="#registerModal">立即注册</span> | <span
+            data-toggle="modal" data-target="#loginModal">登录</span></div> -->
+  </header>
+
+  <section class="unsubscribe-email" ng-controller="cancelRead">
+      <div class="fill-unsubscribe" ng-if="showCancelForm">
+        <h5>退订邮件</h5>
+        <div class="content">
+          <div>
+            <form name="emailForm" novalidate="novalidate" method="post" action="mailApi.php">
+              <input class="usermail" type="text" placeholder="请输入你的邮箱" ng-model="getReasonInfo.email" name="usermail"
+              ng-focus="ifCompleteEmail=false" ng-blur="ifCompleteEmail=true" required
+              ng-pattern="/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/">
+              <span class="erro-tips" ng-show="emailForm.usermail.$error.required&&ifCompleteEmail" ng-bind="errorTips.null"></span>
+              <span class="erro-tips" ng-show="emailForm.usermail.$error.pattern&&ifCompleteEmail" ng-bind="errorTips.wrong"></span>
+            </form>
+          </div>
+          <div>你退订的原因是：</div>
+          <ul>
+            <!-- <li class="item"><span class="select-tag" ng-click="chooseReason($event)"></span>邮件无法正常显示</li>
+            <li class="item"><span class="select-tag" ng-click="chooseReason($event)"></span>对邮件内容不感兴趣</li>
+            <li class="item"><span class="select-tag" ng-click="chooseReason($event)"></span>邮件内容包含反动、色情、政治等信息</li>
+            <li class="item"><span class="select-tag" ng-click="chooseReason($event)"></span>这类邮件发送频率太高 </li>
+            <li class="item">
+              <div>
+                <span class="select-tag" ng-click="chooseReason($event)"></span>
+                <p>其他(请填写退订理由)</p>
+              </div>
+              <textarea class="reason" ng-model="getReasonInfo.otherReason"></textarea>
+            </li> -->
+            <li class="item">
+              <label for="" ng-click="chooseReason(1)">
+                <span class="outerIcon"><span class='icon' ng-class="{'selected':getReasonInfo.status==1}"></span></span>
+                <input type="radio" name='reason' class="select-tag">邮件无法正常显示
+              </label>
+            </li>
+            <li class="item">
+              <label for="" ng-click="chooseReason(2)">
+                <span class="outerIcon"><span class='icon' ng-class="{'selected':getReasonInfo.status==2}"></span></span>
+                <input type="radio" name='reason'  class="select-tag">对邮件内容不感兴趣
+              </label>
+            </li>
+            <li class="item">
+              <label for="" ng-click="chooseReason(3)">
+                <span class="outerIcon"><span class='icon' ng-class="{'selected':getReasonInfo.status==3}"></span></span>
+                <input type="radio" name='reason' class="select-tag">邮件内容包含反动、色情、政治等信息
+              </label>
+            </li>
+            <li class="item">
+              <label for="" ng-click="chooseReason(4)">
+                <span class="outerIcon"><span class='icon' ng-class="{'selected':getReasonInfo.status==4}"></span></span>
+                <input type="radio" name='reason' class="select-tag">这类邮件发送频率太高
+              </label>
+            </li>
+            <li class="item">
+              <div>
+                <label for="" ng-click="chooseReason(5)">
+                  <span class="outerIcon"><span class='icon' ng-class="{'selected':getReasonInfo.status==5}"></span></span>
+                  <input type="radio" name='reason' class="select-tag">其他(请填写退订理由)
+                </label>
+              </div>
+              <textarea class="reason" ng-model="getReasonInfo.reason"></textarea>
+            </li>
+            <li style="color:red" ng-show="checkSelectReason" class="erro-tips" ng-bind="errorTips.select"></li>
+          </ul>
+        </div>
+        <div class="pull-select" ng-click="sureCancelRead()">提交</div>
+      </div>
+      <div ng-cloak>
+        <div class="success-unsubscribe" ng-if="!showCancelForm" ng-cloak>
+          <h5>退订成功</h5>
+          <div class="success-icon">
+            <img src="img/success-icon.png" alt="">
+          </div>
+          <div>您已成功退订订阅内容</div>
+        </div>
+      </div>
+  </section>
+  <script>
+  let unsubscribe = angular.module('myApp',[])
+  unsubscribe.controller('cancelRead',['$scope','$q','$http',function($scope,$q,$http){
+    $scope.getReasonInfo ={
+     'email':'',
+     'status':null,
+     'reason':''
+   };
+   $scope.errorTips = {
+     'null':'邮箱不能为空',
+     'wrong':'邮箱格式不正确',
+     'select':'请选择退订理由'
+   }
+   $scope.checkSelectReason = false;
+   $scope.ifCompleteEmail = false;
+   $scope.showCancelForm = true;
+   $scope.chooseReason = function(num){
+     $scope.checkSelectReason = false;
+     $scope.getReasonInfo.status = num;
+   }
+   $scope.sureCancelRead = function(){
+     if(!$scope.getReasonInfo.status){
+        $scope.checkSelectReason = true;
+     }
+     $scope.ifCompleteEmail = true;
+     if(!$scope.checkSelectReason&&this.emailForm.usermail.$valid){
+       $http({
+               method: "post",
+               data:$scope.getReasonInfo,
+               url:"mailApi.php"
+           })
+           .success(function(data){
+               if(data.status == 'ok'){
+                 $scope.showCancelForm = false;
+               }
+           });
+     }
+   };
+  }])
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <script src="./js/vue.js"></script>
+    <script sec="./js/index.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <table>
+            <tr is="custom-select"></tr>                   
+        </table>
+        <custom-select btn-value="搜索"></custom-select>  
+        
+    </div>
+    <script>
+        Vue.component("customSelect",{
+            data:function(){
+                return {
+                    isShow:false
+                }
+            },
+            props:['btnValue'],
+            template:`
+            <section class="warp">
+                <div class="searchIpt clearFix">
+                    <div class="clearFix">
+                        <input type="text" class="keyWord" value="" @click="isShow=!isShow" />
+                        <input type="button" :value="btnValue">
+                        <span></span>
+                    </div>
+                    <ul class="list" v-show="isShow">
+                        <li>html+css</li>
+                        <li>html5+css3</li>
+                        <li>javascript</li>
+                        <li>angular</li>
+                        <li>react</li>
+                        <li>vue</li>
+                        <li>jquery</li>
+                        <li>nodejs</li>
+                    </ul>
+                </div>
+            </section>
+            `
+        })
+        var vm = new Vue({
+            el:"#app",
+            data:{}
+        })
+    </script>
+</body>
+</html>
