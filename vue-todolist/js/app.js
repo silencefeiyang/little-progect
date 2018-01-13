@@ -56,7 +56,7 @@ var vm = new Vue({
 					})
 				}
 			}
-			return filter[this.visibility](list);
+			return filter[this.visibility] ? filter[this.visibility](list) : list;
 		}
 	},
 	methods:{

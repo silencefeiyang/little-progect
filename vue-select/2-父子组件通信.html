@@ -12,60 +12,57 @@
 <body>
     
     <div id="app">
-        <custom-select btn-value="查找" style="float:left" :list="cityAdres"></custom-select>
-        <custom-select btn-value="搜索" style="float:left" :list="product"></custom-select>  
-        
+        <custom-select search-type="搜索" :list="city"></custom-select>  
+        <custom-select search-type="查询" :list="product"></custom-select>
     </div>
     <script>
         Vue.component("customSelect",{
-            data:function(){
+            props:['searchType','list'],
+            data() {
                 return {
-                    isShow:false,
-                    val:""
-                }
+                    isShow: false,
+                    val:''
+                    }
             },
-            props:['btnValue','list'],
             template:`
-                <section class="warp">
-                    <div class="searchIpt clearFix">
-                        <div class="clearFix">
-                            <input type="text" class="keyWord"  :value="val" @click="isShow=!isShow" />
-                            <input type="button" :value="btnValue">
-                            <span></span>
-                        </div>
-                        <custom-list 
-                        v-show="isShow" 
-                        :child-list="list"
-                        v-on:fatherListen="changeValue"
-                        ></custom-list>    
+            <section class="warp" style="float:left">
+                <div class="searchIpt">
+                    <div class="clearFix">
+                        <input type="text" class="keyWord" value="" @click="showHistory" :value="val"/>
+                        <input type="button" :value="searchType">
+                        <span></span>
                     </div>
-                </section>
+                    <custom-list :childList="list" v-show="isShow" @fatherListen="changeValue"></custom-list>
+                </div>
+            </section>
             `,
             methods:{
-               changeValue(value){
-                   this.val = value;
-               }
+                showHistory(){
+                    this.isShow = true
+                },
+                changeValue(item){
+                    this.val=item
+                }
             }
         })
-        Vue.component("customList",{
-            props:["childList"],
+        Vue.component('customList',{
+            props:['childList'],
             template:`
-                <ul class="list">
-                        <li v-for="item in childList" v-text="item" @click="selecedValue(item)"></li>
+                <ul class="list" >
+                    <li v-for="item in childList" @click="selectValue(item)">{{item}}</li>
                 </ul>
             `,
             methods:{
-                selecedValue(item){
-                    //子组件中有交互    当子组件点击事件发生，要利用自定义事件通知父组件  
-                    this.$emit("fatherListen",item)      //实例对象上有$emit这个方法
+                selectValue(item){
+                    this.$emit('fatherListen',item)
                 }
             }
         })
         var vm = new Vue({
             el:"#app",
             data:{
-                cityAdres:["北京","成都","三亚","西西里"],
-                product:["烤鸭","火锅","水果","沙漠"]
+                city:['成都','重庆','三亚'],
+                product:['火锅','干锅','水果']
             }
         })
     </script>

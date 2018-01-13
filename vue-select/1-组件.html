@@ -12,26 +12,21 @@
 <body>
     
     <div id="app">
-        <table>
-            <tr is="custom-select"></tr>                   
-        </table>
-        <custom-select btn-value="搜索"></custom-select>  
-        
+        <custom-select search-type="搜索"></custom-select>  
+        <custom-select search-type="查询"></custom-select>
     </div>
     <script>
         Vue.component("customSelect",{
-            data:function(){
-                return {
-                    isShow:false
-                }
+            props:['searchType'],
+            data() {
+                return {isShow: false}
             },
-            props:['btnValue'],
             template:`
-            <section class="warp">
-                <div class="searchIpt clearFix">
+            <section class="warp" style="float:left">
+                <div class="searchIpt">
                     <div class="clearFix">
-                        <input type="text" class="keyWord" value="" @click="isShow=!isShow" />
-                        <input type="button" :value="btnValue">
+                        <input type="text" class="keyWord" value="" @click="showHistory"/>
+                        <input type="button" :value="searchType">
                         <span></span>
                     </div>
                     <ul class="list" v-show="isShow">
@@ -46,7 +41,12 @@
                     </ul>
                 </div>
             </section>
-            `
+            `,
+            methods:{
+                showHistory(){
+                    this.isShow = true
+                }
+            }
         })
         var vm = new Vue({
             el:"#app",
