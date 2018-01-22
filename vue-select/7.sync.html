@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+            <div>{{num}}</div>
+            <custom-mes :num-Add.sync="num"></custom-mes>
+    </div>
+    <script>
+        Vue.component("customMes",{
+            props:{
+                numAdd:[Number,String]
+            },
+            data(){
+                return {
+                    initNum:this.numAdd,
+                    test:'文字'
+                }
+            },
+            template:`
+                <div>
+                   <h2>我是自定义组件</h2>
+                   <button @click="change">变变变</button>
+                   <p>{{initNum}}</p>
+                </div>`,
+            methods:{
+                change(){
+                    this.initNum = this.test
+                    this.$emit("update:num-Add",this.test)
+                }
+            }
+        })
+        
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                num:0
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

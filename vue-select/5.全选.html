@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <script src="./js/vue.js"></script>
+    <script sec="./js/index.js"></script>
+</head>
+<body>
+
+    <div class="app">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td><input type="checkbox" v-model="allChecked"/>全选{{allChecked}}</td>
+            </tr>
+            <tr v-for="item in list">
+                <td><input type="checkbox" v-model="item.checked" /></td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+       var _list = [{name:"小明",age:23, checked: false},{name:"小红",age:20, checked: true},{name:"ddd",age:30, checked: true}];
+
+        new Vue({
+            el: '.app',
+            computed: {
+                allChecked: {
+                    get: function(){
+                        console.log('我是数组list'+this.list.length)
+                        return this.checkedCount == this.list.length;
+                    },
+                    set: function(value){
+                        console.log('我是value'+value)
+                        this.list.forEach(function(item){
+                            item.checked = value
+                        })
+                        return value;
+                    }
+                },
+                checkedCount: {
+                    get: function(){
+                        var i = 0;
+                        this.list.forEach(function(item){
+                            if(item.checked == true) i++;
+                        })
+                        console.log('我是i'+ i)
+                        return i;
+                    }
+                }
+            },
+            data:{
+                list: _list
+            }
+    });
+    </script>
+</body>
+</html>
