@@ -27,7 +27,8 @@ let router = new VueRouter({      //初始化一个路由实例
             path:'/',              //配置首页
             component:Home,
             meta:{
-                index:1
+                index:1,
+                title:'home'
             }
         },
         // {
@@ -45,7 +46,8 @@ let router = new VueRouter({      //初始化一个路由实例
                     name:'study',  
                     component:Study,
                     meta:{
-                        index:3
+                        index:3,
+                        title:'study'
                     }
                 },
                 {
@@ -63,12 +65,18 @@ let router = new VueRouter({      //初始化一个路由实例
         {
             path:'/document',
             name:'Document',
+            beforeEnter(to,from,next){
+                next();
+                console.log(1)
+            },
             components:{
                 default:document,
                 silder:Silder
             },
             meta:{
-                index:2
+                index:2,
+                login:true,
+                title:'document'
             }
         },
 
@@ -76,25 +84,38 @@ let router = new VueRouter({      //初始化一个路由实例
             path:'/user/:userType?/:userId?',         //匹配动态路由     ？代表匹配一次或者多次  /user/vip/1  /user/common/1   /user
              component:User,
              meta:{
-                 index:4
+                 index:4,
+                 title:'user'
              }
-        },
-        {
-            path:'*',
-            // redirect:'./home',       写path路径
-            // redirect:{name:'About'}      写对象形式，配合给路由取的名字
-            redirect:(to) => {        //动态写入重定向目标
-                //to 目标路由对象，就是访问的路径的路由信息
-                if(to.path==='/123'){
-                    return '/about'
-                }else if(to.path ==='/345'){
-                    return '/document'
-                }else{
-                    return {path:'/'}
-                }
-            }
         }
+        // {
+        //     path:'*',
+        //     // redirect:'./home',       写path路径
+        //     // redirect:{name:'About'}      写对象形式，配合给路由取的名字
+        //     redirect:(to) => {        //动态写入重定向目标
+        //         //to 目标路由对象，就是访问的路径的路由信息
+        //         if(to.path==='/123'){
+        //             return '/about'
+        //         }else if(to.path ==='/345'){
+        //             return '/document'
+        //         }else{
+        //             return {path:'/'}
+        //         }
+        //     }
+        // }
     ]
 })
-
+// router.beforeEach((to,from,next) => {
+//     // if(to.meta.login){        //判断是否需要登录
+//     //     next('/login')
+//     // }else{
+//     //     next()
+//     // }
+//     next()
+// })
+// router.afterEach((to,from,next)=>{
+//     if(to.meta.title){
+//         window.document.title = to.meta.title
+//     }
+// })
 export default router             //将路由实例暴露出去

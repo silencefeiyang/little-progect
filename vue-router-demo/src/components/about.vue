@@ -12,6 +12,7 @@
      </ul>
     <hr/>
     <router-view></router-view>
+    <span>{{mes}}</span>
  </div>
 </template>
 
@@ -19,8 +20,20 @@
  export default {
    data () {
      return {
-
+       mes:''
      }
+   },
+   beforeRouteEnter(to,from,next){
+       next((vm) => {
+           vm.mes = '今天下雪啦'
+       })
+   },
+   beforeRouteUpdate(to,from,next){
+       console.log('路由改变')
+   },
+   beforeRouteLeave(to,from,next){
+      next()
+       console.log('走了')
    },
    components: {
 

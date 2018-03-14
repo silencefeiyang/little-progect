@@ -48,7 +48,7 @@ let data = [
    data(){
        return {
            userList:data,
-           userInfo:{}
+           userInfo:{},
        }
    },
    methods:{

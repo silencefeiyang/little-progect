@@ -1,3 +1,4 @@
+
 <template>
   <div id="app">
     <div class="nav-box">
@@ -21,12 +22,13 @@
       </ul>
     </div>
     <!-- <router-view name="silder"></router-view> -->
+    <button @click="back">后退</button>
+    <button @click="forward">前进</button>
     <transition :name="site" mode="out-in">
      <router-view class="center"></router-view>     <!--router渲染的根节点-->
     </transition>   
   </div>
 </template>
-
 <script>
 export default {
   name: 'App',
@@ -43,6 +45,14 @@ export default {
       }else{
         this.site = 'left'
       }
+    }
+  },
+  methods:{
+    back(){
+      this.$router.back()
+    },
+    forward(){
+      this.$router.forward()
     }
   }
 }

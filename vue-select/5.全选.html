@@ -34,11 +34,11 @@
             computed: {
                 allChecked: {
                     get: function(){
-                        console.log('我是数组list'+this.list.length)
+            
                         return this.checkedCount == this.list.length;
                     },
                     set: function(value){
-                        console.log('我是value'+value)
+                    
                         this.list.forEach(function(item){
                             item.checked = value
                         })
