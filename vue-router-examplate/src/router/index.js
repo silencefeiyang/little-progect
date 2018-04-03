@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home'
-import Layout from '@/views/layout'
 
-import Project from '@/views/backend/project'
-import Doc from '@/views/backend/doc'
-import Workbench from '@/views/backend/workbench'
+// import Layout from '@/views/layout'
+// import Project from '@/views/backend/project'
+// import Doc from '@/views/backend/doc'
+// import Workbench from '@/views/backend/workbench'
 import Login from '@/components/login'
 
 let layout = (resolve) => {
@@ -23,14 +23,14 @@ let doc = (resolve) => {
     resolve(require('@/views/backend/doc'))    
   },'abc')                                    //第三个参数  chunk  webpack会将chunk名字相同的打包到一起，进行加载
 }   
-// let workbench = (resolve) => {
-//   return require.ensure([],()=>{          
-//     resolve(require('@/views/backend/workbench'))    
-//   },'abc')
-// }  
 let workbench = (resolve) => {
-  return import(('@/views/backend/workbench'))
-} 
+  return require.ensure([],()=>{          
+    resolve(require('@/views/backend/workbench'))    
+  },'abc')
+}  
+// let Workbench = (resolve) => {
+//   return import('@/views/backend/workbench')
+// }
 Vue.use(Router)
 
 let router = new Router({
